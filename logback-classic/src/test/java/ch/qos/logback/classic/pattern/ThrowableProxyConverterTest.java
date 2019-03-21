@@ -60,57 +60,6 @@ public class ThrowableProxyConverterTest {
     }
 
     @Test
-    public void suppressed() throws InvocationTargetException, IllegalAccessException {
-        assumeTrue(TestHelper.suppressedSupported()); // only execute on Java 7, would work anyway but doesn't make
-                                                      // sense.
-        Exception ex = null;
-        try {
-            someMethod();
-        } catch (Exception e) {
-            Exception fooException = new Exception("Foo");
-            Exception barException = new Exception("Bar");
-            addSuppressed(e, fooException);
-            addSuppressed(e, barException);
-            ex = e;
-        }
-        verify(ex);
-    }
-
-    @Test
-    public void suppressedWithCause() throws InvocationTargetException, IllegalAccessException {
-        assumeTrue(TestHelper.suppressedSupported()); // only execute on Java 7, would work anyway but doesn't make
-                                                      // sense.
-        Exception ex = null;
-        try {
-            someMethod();
-        } catch (Exception e) {
-            ex = new Exception("Wrapper", e);
-            Exception fooException = new Exception("Foo");
-            Exception barException = new Exception("Bar");
-            addSuppressed(ex, fooException);
-            addSuppressed(e, barException);
-        }
-        verify(ex);
-    }
-
-    @Test
-    public void suppressedWithSuppressed() throws Exception {
-        assumeTrue(TestHelper.suppressedSupported()); // only execute on Java 7, would work anyway but doesn't make
-                                                      // sense.
-        Exception ex = null;
-        try {
-            someMethod();
-        } catch (Exception e) {
-            ex = new Exception("Wrapper", e);
-            Exception fooException = new Exception("Foo");
-            Exception barException = new Exception("Bar");
-            addSuppressed(barException, fooException);
-            addSuppressed(e, barException);
-        }
-        verify(ex);
-    }
-
-    @Test
     public void smoke() {
         Exception t = new Exception("smoke");
         verify(t);

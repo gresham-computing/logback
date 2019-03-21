@@ -35,22 +35,8 @@ public class RollingCalendarTest {
    @Before
    public void setUp() {
        
-       // Most surprisingly, in certain environments (e.g. Windows 7), setting the default locale
-       // allows certain tests to pass which otherwise fail.
-       //
-       // These tests are:
-       //
-       //  checkCollisionFreeness("yyyy-WW", false);
-       //  checkCollisionFreeness("yyyy-ww", true);
-       //  checkCollisionFreeness("ww", false);
-       //  {
-       //    RollingCalendar rc = new RollingCalendar("yyyy-ww");
-       //    assertEquals(PeriodicityType.TOP_OF_WEEK, rc.getPeriodicityType());
-       //  }
-       // 
-       
-       Locale oldLocale = Locale.getDefault();
-       Locale.setDefault(oldLocale);
+       //week of year number is locale dependent. These tests do not properly account for this - force US locale.
+       Locale.setDefault(Locale.US);
    }
 
    @After
